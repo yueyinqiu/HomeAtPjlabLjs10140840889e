@@ -1,4 +1,9 @@
-{ name, pkgs, nix-airgap, ... }:
+{
+  name,
+  pkgs,
+  nix-airgap,
+  ...
+}:
 
 let
   installable = ".#homeConfigurations.\"lujiaqi.p@ljs-10-140-84-0-889e\".activationPackage";
@@ -8,11 +13,19 @@ in
 pkgs.writeShellApplication {
   name = name;
   text = ''
-    "${nix-airgap.airgap}/bin/nix-airgap" \
-      "${installable}" \
-      "${remoteHost}" \
-      --remote-out-link "${remoteOutLink}"
+    ${pkgs.lib.escapeShellArgs [
+      "${nix-airgap.airgap}/bin/nix-airgap"
+      installable
+      remoteHost
+      "--remote-out-link"
+      remoteOutLink
+    ]}
 
-    ssh "${remoteHost}" -- "${remoteOutLink}/activate"
+    ${pkgs.lib.escapeShellArgs [
+      "ssh"
+      remoteHost
+      "--"
+      "${remoteOutLink}/activate"
+    ]}
   '';
 }
