@@ -1,6 +1,6 @@
-{ lib, ... }: {
+{ ... }: {
   programs.bash.enable = true;
-  programs.bash.initExtra = lib.mkBefore ''
+  programs.bash.bashrcExtra = ''
     . ~/.bashrc_proxy
   '';
 }
