@@ -1,5 +1,5 @@
 { ... }: {
-  home.username = "yueyinqiu";
+  home.username = "lujiaqi.p";
   home.homeDirectory = "/home/lujiaqi.p";
 
   nixpkgs.config.allowUnfree = true;
